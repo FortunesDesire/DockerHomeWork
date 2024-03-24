@@ -1,1 +1,7 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS buil
+FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS to_build
+WORKDIR /src
+COPY . /src
+RUN set -eux && dotnet build WebApplication_DIT_Docker.sln
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-jammy as runtime
+WORKDIR /apps
