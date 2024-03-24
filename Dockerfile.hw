@@ -1,14 +1,15 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /apps
-#ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
+ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["WeatherApp/WeatherApp.csproj", "WeatherApp/"]
 RUN set -eux && dotnet restore "WeatherApp/WeatherApp.csproj"
 COPY . .
 WORKDIR "/src/WeatherApp"
 RUN dotnet build "WeatherApp.csproj" -c Release -o /apps/build
-EXPOSE 5000
-ENTRYPOINT ["dotnet", "bin/Debug/net8.0/WeatherApp.dll"]
+
+#WORKDIR /apps
+ENTRYPOINT ["dotnet", "/apps/build/WeatherApp.dll"]
 
