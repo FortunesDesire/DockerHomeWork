@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-jammy AS base
 WORKDIR /apps
 ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS build
 WORKDIR /src
 COPY ["WebApplication_DIT_Docker/WebApplication_DIT_Docker.csproj", "WebApplication_DIT_Docker/"]
 RUN set -eux && dotnet restore "WebApplication_DIT_Docker/WebApplication_DIT_Docker.csproj"
@@ -10,6 +10,5 @@ COPY . .
 WORKDIR "/src/WebApplication_DIT_Docker"
 RUN dotnet build "WebApplication_DIT_Docker.csproj" -c Release -o /apps/build
 
-#WORKDIR /apps
 ENTRYPOINT ["dotnet", "/apps/build/WebApplication_DIT_Docker.dll"]
 

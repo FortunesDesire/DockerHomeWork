@@ -1,2 +1,6 @@
 # Ignore project source-code
 WebApplication_DIT_Docker/
+
+#More stuff
+.sln
+.config
