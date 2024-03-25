@@ -1,0 +1,13 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0-jammy AS build
+WORKDIR /apps-docker
+COPY net/ /apps-docker/
+RUN set -eux && dotnet build WebApplication_DIT_Docker.sln
+
+
+#FROM mcr.microsoft.com/dotnet/aspnet:6.0-jammy AS base
+#WORKDIR /apps
+#COPY --from=build /apps-docker/WebApplication_DIT_Docker/bin/Debug/net6.0*.dll /apps/WebApplication_DIT_Docker/
+#COPY --from=build /apps-docker/WebApplication_DIT_Docker/bin/Debug/net6.0/*.json /apps/WebApplication_DIT_Docker/
+
+#ENTRYPOINT ["dotnet", "/apps/WebApplication_DIT_Docker/WebApplication_DIT_Docker.dll"]
+
