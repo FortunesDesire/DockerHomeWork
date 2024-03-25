@@ -4,12 +4,12 @@ ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy AS build
 WORKDIR /src
-COPY ["WeatherApp/WeatherApp.csproj", "WeatherApp/"]
-RUN set -eux && dotnet restore "WeatherApp/WeatherApp.csproj"
+COPY ["WebApplication_DIT_Docker/WebApplication_DIT_Docker.csproj", "WebApplication_DIT_Docker/"]
+RUN set -eux && dotnet restore "WebApplication_DIT_Docker/WebApplication_DIT_Docker.csproj"
 COPY . .
-WORKDIR "/src/WeatherApp"
-RUN dotnet build "WeatherApp.csproj" -c Release -o /apps/build
+WORKDIR "/src/WebApplication_DIT_Docker"
+RUN dotnet build "WebApplication_DIT_Docker.csproj" -c Release -o /apps/build
 
 #WORKDIR /apps
-ENTRYPOINT ["dotnet", "/apps/build/WeatherApp.dll"]
+ENTRYPOINT ["dotnet", "/apps/build/WebApplication_DIT_Docker.dll"]
 
