@@ -2,14 +2,24 @@ version: "3.9"
 services:
   nginx-gs:
     image: nginx-gs:1.0
-      ports:
-        - "80:80"
-      environment:
-        TZ: "Europe/Moscow"
-      depends_on:
-        - weather-app
-      configs:
-        - source: nginx-gs.conf
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+    ports:
+       "80:80"
+    environment:
+      TZ: "Europe/Moscow"
+    depends_on:
+      - weather-app
+    configs:
+      - source: nginx-gs.conf
       target: /etc/nginx/sites-available/nginx-gs.conf
 
   weather-app:
