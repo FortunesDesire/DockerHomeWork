@@ -13,17 +13,28 @@ services:
         delay: 10s
         max_attempts: 3
     ports:
-       - "80:80"
+       - 80:80
     environment:
       TZ: "Europe/Moscow"
     depends_on:
       - weather-app
     configs:
       - source: nginx.conf
-      - target: /etc/nginx/sites-available/nginx.conf
+        target: /etc/nginx/sites-available/nginx.conf
 
   weather-app:
     image: weather-app:1.0
+
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
     
 configs:
   nginx.conf:
