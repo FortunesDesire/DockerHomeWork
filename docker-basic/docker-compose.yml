@@ -1,18 +1,18 @@
 version: '3'
 services:
-    weather-app:
-	build:
-	    context: ./
-	    dockerfile: Dockerfile.hw
-	image: weather-app:1.0
-	container_name: weather-app
-	ports:
-	    - 5000:80
-	deploy:
-	    resources:
-		limits:
-		    cpus: '1.0'
-		    memory: 1G
-		reservations:
-		    cpus: '0.1'
-		    memory: 100M
+  weather-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile.hw
+    image: weather-app:1.0
+    container_name: weather-app
+    ports:
+      - 5000:80
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.1'
+          memory: 100M
